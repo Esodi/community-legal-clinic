@@ -1,0 +1,39 @@
+MIT License
+
+Copyright (c) 2025 Kiwy Monzy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+npx serve@latest out
+
+
+pnpm tauri icon ./logo.png
+pnpm tauri icon ./logo.png --icon-size 128x128
+
+rd /s /q node_modules && del pnpm-lock.yaml
+rd /s /q .next
+password123
+
+set TAURI_PRIVATE_KEY=C:\Users\PC\Documents\Github\community-legal-clinic\tmp\json.key
+set TAURI_KEY_PASSWORD=shevienPaty2
+pnpm tauri build
+
+npm install --legacy-peer-deps
+
+pnpm tauri signer sign --private-key C:\Users\PC\Documents\Github\community-legal-clinic\tmp\json.key --password shevienPaty2 "C:\Users\PC\Documents\Github\community-legal-clinic\src-tauri\target\release\bundle\nsis\Community Legal Clinic_0.1.0_x64-setup.exe"
