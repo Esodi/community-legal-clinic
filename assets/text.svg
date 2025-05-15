@@ -1,0 +1,19 @@
+        <svg width="100%" height="120" viewBox="0 0 900 120" className="block">
+          <path
+            id="curvePath"
+            d="M 50 100 Q 450 -20 850 100"
+            fill="none"
+            stroke="none"
+          />
+          <text fill="#d1d5db" fontSize="20" className="text-xl">
+            <textPath href="#curvePath" startOffset="50%" textAnchor="middle">
+              <motion.tspan
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                {data.subtitle}
+              </motion.tspan>
+            </textPath>
+          </text>
+        </svg>

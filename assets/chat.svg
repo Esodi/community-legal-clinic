@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="528.742" height="368" viewBox="0 0 528.742 368">
+  <g id="chat" transform="translate(-616 -180)">
+    <g id="Group_3" data-name="Group 3">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="267" height="101" rx="30" transform="translate(616 319)" fill="#fff"/>
+      <text id="Hello_Emma_Thanks_for_reaching_out_Please_choose_the_option_below:" data-name="Hello, Emma! Thanks for reaching out! Please choose the option below:" transform="translate(636 327)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="22">Hello, </tspan><tspan y="22" font-family="SegoeUI-Bold, Segoe UI" font-weight="700">Emma!</tspan><tspan y="22" xml:space="preserve"> Thanks for </tspan><tspan x="0" y="49">reaching out! Please </tspan><tspan x="0" y="76">choose the option below:</tspan></text>
+    </g>
+    <g id="GREEN_BUBB:E" data-name="GREEN BUBB:E" transform="translate(0 9.944)">
+      <rect id="Rectangle_5" data-name="Rectangle 5" width="339" height="100" rx="30" transform="translate(791 170.056)" fill="#00c02c"/>
+      <path id="Path_1" data-name="Path 1" d="M15.932,0,0,35.265s.759,5.7,27.313,9.162c.19.519-11.57-6.915-11.38-25.239Z" transform="matrix(0.995, -0.105, 0.105, 0.995, 1112.93, 228.842)" fill="#00c02c"/>
+      <text id="Hi_I_need_legal_Service_Can_you_help_" data-name="Hi, I need legal Service Can you help?" transform="translate(804 175.056)" font-size="31" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="33">Hi, I need legal </tspan><tspan x="0" y="74">Service Can you help?</tspan></text>
+    </g>
+    <g id="Group_1" data-name="Group 1" transform="translate(22 -6)">
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="98" height="37" rx="18.5" transform="translate(594 436)" fill="#fff"/>
+      <text id="TSA" transform="translate(643 463)" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="-16.807" y="0">TSA</tspan></text>
+    </g>
+    <g id="Group_2" data-name="Group 2" transform="translate(2 -8)">
+      <rect id="Rectangle_4" data-name="Rectangle 4" width="223" height="60" rx="30" transform="translate(614 496)" fill="#fff"/>
+      <text id="Other_Legal_Services" data-name="Other Legal Services" transform="translate(726 535)" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="-98.372" y="0">Other Legal Services</tspan></text>
+    </g>
+  </g>
+</svg>
