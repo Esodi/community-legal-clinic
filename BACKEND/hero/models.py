@@ -79,8 +79,8 @@ def get_hero():
         if not hero:
             # Return default data if no hero exists
             return {
-                "headline": "INSTANT ACCESS TO TRUSTED LEGAL EXPERTS, WHENEVER YOU ARE.",
-                "subheadline": "Facing a legal issue?, Start on whatsapp on legal Experts, book a phone or Zoom/Google meeting, then meet in person to complete your case",
+                "headline": "FACING A LEGAL ISSUE?",
+                "subheadline": "Start on whatsapp on legal Experts, book a phone or Zoom/Google meeting, then meet in person to complete your case",
                 "ctaText": "CHAT WITH LEGAL EXPERTS",
                 "status": "active",
                 "chatData": {
