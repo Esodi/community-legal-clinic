@@ -8,8 +8,9 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LogoutButton from "@/components/LogoutButton";
-import { checkAuth } from "@/lib/auth-api";
 import { useAuth } from "@/app/contexts/AuthContext";
+import Consultation from "./bookconsultation";
+import GooeyButton from "./bookconsultation";
 
 interface NavigationLink {
   id: number;
@@ -41,32 +42,15 @@ export default function Header({
 
     checkAuthStatus();
 
-    // Check auth status when localStorage changes
     const handleStorageChange = () => {
       checkAuthStatus();
     };
 
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+  }, [authStatus, user]);
 
   const allNavigationLinks = [...navigationLinks];
-
-  // Add dynamic links based on auth status and role
-  // if (isAuthenticated) {
-  //   allNavigationLinks.push({
-  //     id: 5,
-  //     label: 'Dashboard',
-  //     href: '/dashboard'
-  //   });
-
-  // } else {
-  //   allNavigationLinks.push({
-  //     id: 5,
-  //     label: 'Login',
-  //     href: '/login'
-  //   });
-  // }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -86,7 +70,7 @@ export default function Header({
               className="w-12 h-12 object-contain transition-transform group-hover:scale-105"
             />
             <span className="font-bold text-xl whitespace-nowrap ml-2 group-hover:text-amber-300 transition-colors">
-              {window.innerWidth < 1111
+              {typeof window !== "undefined" && window.innerWidth < 1111
                 ? "Community Legal Clinic"
                 : "Community Legal Clinic (CLC)"}
             </span>
@@ -104,6 +88,7 @@ export default function Header({
             </button>
           </div>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center space-x-8">
             <nav>
               <ul className="flex items-center space-x-6">
@@ -111,7 +96,7 @@ export default function Header({
                   <li key={link.id}>
                     <Link
                       href={link.href}
-                      className="text-sm hover:text-amber-300 transition-colors duration-200"
+                      className="text-lg hover:text-amber-300 transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -121,21 +106,7 @@ export default function Header({
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#001a42] transition-colors whitespace-nowrap"
-                asChild
-              >
-                <a
-                  href="https://shorturl.at/EMOCr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center"
-                >
-                  Book Consultation
-                </a>
-              </Button>
+              <GooeyButton />
               {isAuthenticated && (
                 <div className="w-full flex">
                   <LogoutButton />
@@ -160,7 +131,7 @@ export default function Header({
                   <Link
                     key={link.id}
                     href={link.href}
-                    className="block px-3 py-2 text-base font-medium hover:text-amber-300 transition-colors duration-200 rounded-md hover:bg-[#002a62]"
+                    className="block px-3 py-2 text-lg font-medium hover:text-amber-300 transition-colors duration-200 rounded-md hover:bg-[#002a62]"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
@@ -172,17 +143,8 @@ export default function Header({
                     size="sm"
                     className="w-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#001a42] transition-colors whitespace-nowrap"
                     asChild
-                  >
-                    <a
-                      href="https://shorturl.at/EMOCr"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Book Consultation
-                    </a>
-                  </Button>
+                  ></Button>
+                  <Consultation />
                   {isAuthenticated && (
                     <div className="w-full flex">
                       <Button

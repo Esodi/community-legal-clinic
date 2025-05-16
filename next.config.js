@@ -1,28 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   images: {
     unoptimized: true,
-    domains: ['img.youtube.com'],
+    domains: ["img.youtube.com"],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'img.youtube.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "img.youtube.com",
+        port: "",
+        pathname: "/**",
       },
     ],
+  },
+  compiler: {
+    styledComponents: true,
   },
   webpack: (config, { dev, isServer }) => {
     // Suppress the warning about updating a component while rendering
     if (dev && !isServer) {
       config.ignoreWarnings = [
         { module: /node_modules\/@xyflow\/react/ },
-        { message: /Cannot update a component/ }
+        { message: /Cannot update a component/ },
       ];
     }
     return config;
-  }
+  },
 };
 
-module.exports = nextConfig; 
+module.exports = nextConfig;
