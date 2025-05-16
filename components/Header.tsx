@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import logo from '@/assets/logo.png';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import LogoutButton from '@/components/LogoutButton';
-import { checkAuth } from '@/lib/auth-api';
-import { useAuth } from '@/app/contexts/AuthContext';
+import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import LogoutButton from "@/components/LogoutButton";
+import { checkAuth } from "@/lib/auth-api";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface NavigationLink {
   id: number;
@@ -17,7 +17,11 @@ interface NavigationLink {
   href: string;
 }
 
-export default function Header({navigationLinks}: {navigationLinks: NavigationLink[]}) {
+export default function Header({
+  navigationLinks,
+}: {
+  navigationLinks: NavigationLink[];
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -29,7 +33,7 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
         setIsAuthenticated(authStatus);
         setUserRole(user?.role || null);
       } catch (error) {
-        console.error('Error checking auth status:', error);
+        console.error("Error checking auth status:", error);
         setIsAuthenticated(false);
         setUserRole(null);
       }
@@ -42,8 +46,8 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
       checkAuthStatus();
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const allNavigationLinks = [...navigationLinks];
@@ -55,7 +59,7 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
   //     label: 'Dashboard',
   //     href: '/dashboard'
   //   });
-    
+
   // } else {
   //   allNavigationLinks.push({
   //     id: 5,
@@ -72,10 +76,19 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
     <header className="fixed top-0 left-0 w-full bg-[#001a42] text-white z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center group transition-all duration-200 hover:opacity-90 active:scale-95">
-            <Image src={logo} alt="Logo" className="w-12 h-12 object-contain transition-transform group-hover:scale-105" />
+          <Link
+            href="/"
+            className="flex items-center group transition-all duration-200 hover:opacity-90 active:scale-95"
+          >
+            <Image
+              src={logo}
+              alt="Logo"
+              className="w-12 h-12 object-contain transition-transform group-hover:scale-105"
+            />
             <span className="font-bold text-xl whitespace-nowrap ml-2 group-hover:text-amber-300 transition-colors">
-              {window.innerWidth < 1111 ? 'Community Legal Clinic' : 'Community Legal Clinic (CLC)'}
+              {window.innerWidth < 1111
+                ? "Community Legal Clinic"
+                : "Community Legal Clinic (CLC)"}
             </span>
           </Link>
 
@@ -90,13 +103,13 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
               <Menu className="h-6 w-6" />
             </button>
           </div>
-          
+
           <div className="hidden md:flex items-center space-x-8">
             <nav>
               <ul className="flex items-center space-x-6">
                 {allNavigationLinks.map((link) => (
                   <li key={link.id}>
-                    <Link 
+                    <Link
                       href={link.href}
                       className="text-sm hover:text-amber-300 transition-colors duration-200"
                     >
@@ -106,15 +119,15 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
                 ))}
               </ul>
             </nav>
-            
+
             <div className="flex items-center space-x-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#001a42] transition-colors whitespace-nowrap"
                 asChild
               >
-                <a 
+                <a
                   href="https://shorturl.at/EMOCr"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -137,7 +150,7 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
               className="absolute left-0 right-0 md:hidden bg-[#001a42] border-t border-[#002a62]"
@@ -154,13 +167,13 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
                   </Link>
                 ))}
                 <div className="px-3 py-2 space-y-3">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     className="w-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#001a42] transition-colors whitespace-nowrap"
                     asChild
                   >
-                    <a 
+                    <a
                       href="https://shorturl.at/EMOCr"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -172,12 +185,14 @@ export default function Header({navigationLinks}: {navigationLinks: NavigationLi
                   </Button>
                   {isAuthenticated && (
                     <div className="w-full flex">
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
                         onClick={() => {
                           setIsOpen(false);
-                          const logoutBtn = document.querySelector('[data-testid="logout-button"]') as HTMLButtonElement;
+                          const logoutBtn = document.querySelector(
+                            '[data-testid="logout-button"]'
+                          ) as HTMLButtonElement;
                           if (logoutBtn) logoutBtn.click();
                         }}
                         className="w-full border-2 border-red-500 bg-red-500 text-white hover:bg-red-500 hover:text-black transition-colors whitespace-nowrap"
