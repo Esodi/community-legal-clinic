@@ -279,7 +279,7 @@ export default function AnimatedChat() {
 
               {/* calendar icon */}
               <image
-                href="https://img.icons8.com/color/48/calendar--v1.png"
+                /*href="https://img.icons8.com/color/48/calendar--v1.png"*/
                 x="600"
                 y="428"
                 width="24"
@@ -294,7 +294,7 @@ export default function AnimatedChat() {
                 fill="#000"
               >
                 <tspan x="0" y="0">
-                  Book an Appointment
+                  TSA
                 </tspan>
               </text>
             </g>
@@ -320,7 +320,7 @@ export default function AnimatedChat() {
               />
 
               <image
-                href="https://img.icons8.com/color/48/chat--v1.png"
+                /*href="https://img.icons8.com/color/48/chat--v1.png"*/
                 x="620"
                 y="468"
                 width="24"
@@ -335,7 +335,7 @@ export default function AnimatedChat() {
                 fill="#000"
               >
                 <tspan x="0" y="0">
-                  Chat with Support
+                  Other Legal Services
                 </tspan>
               </text>
 
