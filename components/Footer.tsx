@@ -1,8 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { FaWhatsapp, FaTwitter, FaFacebook, FaYoutube, FaArrowUp, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import {
+  FaWhatsapp,
+  FaTwitter,
+  FaFacebook,
+  FaYoutube,
+  FaArrowUp,
+  FaLinkedin,
+  FaInstagram,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 interface FooterProps {
   data: {
@@ -48,7 +57,7 @@ interface FooterProps {
 
 const socialIcons = {
   whatsapp: FaWhatsapp,
-  twitter: FaTwitter,
+  twitter: FaXTwitter,
   facebook: FaFacebook,
   youtube: FaYoutube,
   linkedin: FaLinkedin,
@@ -63,12 +72,12 @@ export default function Footer({ data }: FooterProps) {
       setShowScrollTop(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -77,10 +86,19 @@ export default function Footer({ data }: FooterProps) {
       <div className="absolute top-0 inset-x-0 h-16 bg-[#EAF4F5]"></div>
 
       {/* Top Arrow Icon */}
-      <div className="absolute left-1/2 -translate-x-1/2" style={{ top: '64px' }}>
-        <div className="relative w-12 h-12 -mt-6 cursor-pointer group" onClick={scrollToTop}>
+      <div
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{ top: "64px" }}
+      >
+        <div
+          className="relative w-12 h-12 -mt-6 cursor-pointer group"
+          onClick={scrollToTop}
+        >
           <div className="absolute inset-0 bg-[#003087] rounded-full flex items-center justify-center border-2 border-white">
-            <FaArrowUp className="text-white z-10 group-hover:scale-110 transition-transform" size={20} />
+            <FaArrowUp
+              className="text-white z-10 group-hover:scale-110 transition-transform"
+              size={20}
+            />
           </div>
         </div>
       </div>
@@ -101,7 +119,8 @@ export default function Footer({ data }: FooterProps) {
             {/* Social Links */}
             <div className="flex space-x-6">
               {data.socialLinks.map((link) => {
-                const Icon = socialIcons[link.platform as keyof typeof socialIcons];
+                const Icon =
+                  socialIcons[link.platform as keyof typeof socialIcons];
                 return (
                   <Link
                     key={link.id}
@@ -127,7 +146,9 @@ export default function Footer({ data }: FooterProps) {
               {data.contactUs.items.map((item) => (
                 <div key={item.id} className="mb-2 last:mb-0">
                   {item.isMain && (
-                    <div className="text-base font-semibold text-white">{item.label}</div>
+                    <div className="text-base font-semibold text-white">
+                      {item.label}
+                    </div>
                   )}
                   {item.isAddress && (
                     <div className="text-white/90">{item.label}</div>
@@ -151,7 +172,10 @@ export default function Footer({ data }: FooterProps) {
             <ul className="text-sm">
               {data.ourServices.items.map((item) => (
                 <li key={item.id} className="mb-2 last:mb-0">
-                  <Link href="#services" className="text-white/90 hover:text-white transition-colors">
+                  <Link
+                    href="#services"
+                    className="text-white/90 hover:text-white transition-colors"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -167,8 +191,8 @@ export default function Footer({ data }: FooterProps) {
             <ul className="text-sm">
               {data.usefulLinks.items.map((item) => (
                 <li key={item.id} className="mb-2 last:mb-0">
-                  {item.href.startsWith('http') ? (
-                    <a 
+                  {item.href.startsWith("http") ? (
+                    <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -177,7 +201,7 @@ export default function Footer({ data }: FooterProps) {
                       {item.label}
                     </a>
                   ) : (
-                    <Link 
+                    <Link
                       href={item.href}
                       className="text-white/90 hover:text-white transition-colors"
                     >
@@ -192,7 +216,8 @@ export default function Footer({ data }: FooterProps) {
 
         {/* Copyright */}
         <div className="mt-12 text-center text-sm text-white/70 border-t border-white/10 pt-8">
-          © {new Date().getFullYear()} Community Legal Clinic. All Rights Reserved.
+          © {new Date().getFullYear()} Community Legal Clinic. All Rights
+          Reserved.
         </div>
       </div>
 
@@ -208,4 +233,4 @@ export default function Footer({ data }: FooterProps) {
       )}
     </footer>
   );
-} 
+}

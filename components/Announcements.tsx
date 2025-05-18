@@ -5,6 +5,8 @@ import { motion, useScroll } from "framer-motion";
 import Star from "@/assets/star.svg";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FaWhatsapp, FaFacebook, FaComment, FaCopy } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 type Announcement = {
   id: number;
@@ -24,6 +26,81 @@ type AnnouncementsProps = {
     announcements: Announcement[];
   };
 };
+
+// ShareButtons component (integrated inline)
+function ShareButtons({ url }: { url: string }) {
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+    url
+  )}`;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    url
+  )}`;
+  const xUrl = `https://x.com/intent/post?url=${encodeURIComponent(url)}`;
+  const smsUrl = `sms:?body=${encodeURIComponent(url)}`;
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy link: ", err);
+      alert("Failed to copy link. Please copy it manually.");
+    }
+  };
+
+  console.log({ FaWhatsapp, FaFacebook, FaXTwitter, FaComment, FaCopy });
+
+  return (
+    <div className="flex gap-2 mt-4">
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-green-600 hover:text-green-700"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {FaWhatsapp ? <FaWhatsapp size={16} /> : <span>WhatsApp</span>}
+      </a>
+      <a
+        href={facebookUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 hover:text-blue-700"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {FaFacebook ? <FaFacebook size={16} /> : <span>Facebook</span>}
+      </a>
+      <a
+        href={xUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-800 hover:text-gray-900"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {FaXTwitter ? <FaXTwitter size={16} /> : <span>X</span>}
+      </a>
+      <a
+        href={smsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-white hover:bg-gray-100 text-blue-600 hover:text-blue-700 border border-white rounded-full p-2"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {FaComment ? <FaComment size={16} /> : <span>SMS</span>}
+      </a>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleCopyLink();
+        }}
+        className="bg-white hover:bg-gray-100 text-blue-600 hover:text-blue-700 border border-white rounded-full p-2"
+        title="Copy link to clipboard"
+      >
+        {FaCopy ? <FaCopy size={16} /> : <span>Copy</span>}
+      </button>
+    </div>
+  );
+}
 
 const Section = motion.section;
 const Div = motion.div;
@@ -55,7 +132,6 @@ export default function Announcements({ data }: AnnouncementsProps) {
   const router = useRouter();
 
   useEffect(() => {
-    // Check for #announcements hash and scroll to the section
     if (window.location.hash === "#announcements") {
       const element = document.getElementById("announcements");
       if (element) {
@@ -72,11 +148,11 @@ export default function Announcements({ data }: AnnouncementsProps) {
     <Section id="announcements" className="bg-white py-16">
       <style jsx global>{`
         .no-scrollbar {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         .no-scrollbar::-webkit-scrollbar {
-          display: none; /* Chrome, Safari and Opera */
+          display: none;
         }
       `}</style>
 
@@ -115,7 +191,7 @@ export default function Announcements({ data }: AnnouncementsProps) {
                     </span>
                   </div>
 
-                  {/* Title and NEW badge */}
+                  {/* Title, NEW badge, and ShareButtons */}
                   <div className="flex-1">
                     <div className="relative">
                       <h3 className="text-[#001a42] font-semibold text-lg leading-tight pr-6">

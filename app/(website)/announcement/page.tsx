@@ -8,7 +8,7 @@ import Star from "@/assets/star.svg";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { CalendarDays, Share2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-// import ShareButtons from "@/components/ShareButtons1";
+import ShareButtons from "@/components/ShareButtons1";
 
 type Announcement = {
   id: number;
@@ -178,7 +178,7 @@ export default function AnnouncementPage() {
                 <span className="hidden sm:inline">Back to Announcements</span>
                 <span className="sm:hidden">Back</span>
               </Link>
-              {/* <ShareButtons /> */}
+              <ShareButtons />
             </div>
 
             <div className="bg-white shadow-xl rounded-xl overflow-hidden">
