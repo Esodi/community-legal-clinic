@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 type TestimonialType = {
   id: number;
@@ -22,12 +23,21 @@ const Div = motion.div;
 const H2 = motion.h2;
 
 export default function Testimonials({ data }: { data: TestimonialsDataType }) {
+  // Optional: Add hash-based scrolling for #testimonials
+  useEffect(() => {
+    if (window.location.hash === "#testimonials") {
+      const element = document.getElementById("testimonials");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
+
   return (
     <Section
       id="testimonials"
       className="relative bg-[#001a42] text-white overflow-hidden pt-20 lg:pt-16 pb-16"
     >
-      {/* Removed the dark gradient overlay since it was making content hard to read */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20">
           {/* Title with improved contrast */}
@@ -116,7 +126,7 @@ export default function Testimonials({ data }: { data: TestimonialsDataType }) {
               </div>
               <blockquote className="mb-4">
                 <p className="text-gray-100 leading-relaxed text-sm">
-                  &ldquo;{testimonial.text}&rdquo;
+                  “{testimonial.text}”
                 </p>
               </blockquote>
               <div className="mt-auto">

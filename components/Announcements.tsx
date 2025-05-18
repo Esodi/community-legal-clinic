@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import Star from '@/assets/star.svg';
-import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import { motion, useScroll } from "framer-motion";
+import Star from "@/assets/star.svg";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type Announcement = {
   id: number;
@@ -28,7 +29,7 @@ const Section = motion.section;
 const Div = motion.div;
 
 const NewBadge = () => (
-  <motion.div 
+  <motion.div
     className="inline-flex items-center absolute -right-2 -top-3"
     initial={{ opacity: 0.4, scale: 0.8 }}
     animate={{ opacity: 1, scale: 1.1 }}
@@ -36,7 +37,7 @@ const NewBadge = () => (
       repeat: Infinity,
       repeatType: "reverse",
       duration: 2,
-      ease: "easeInOut"
+      ease: "easeInOut",
     }}
   >
     <Image
@@ -53,6 +54,16 @@ const NewBadge = () => (
 export default function Announcements({ data }: AnnouncementsProps) {
   const router = useRouter();
 
+  useEffect(() => {
+    // Check for #announcements hash and scroll to the section
+    if (window.location.hash === "#announcements") {
+      const element = document.getElementById("announcements");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
+
   const handleAnnouncementClick = (id: number) => {
     router.push(`/announcement?id=${id}`);
   };
@@ -61,15 +72,15 @@ export default function Announcements({ data }: AnnouncementsProps) {
     <Section id="announcements" className="bg-white py-16">
       <style jsx global>{`
         .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;     /* Firefox */
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
         }
         .no-scrollbar::-webkit-scrollbar {
-          display: none;             /* Chrome, Safari and Opera */
+          display: none; /* Chrome, Safari and Opera */
         }
       `}</style>
-      
-      <Div 
+
+      <Div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -93,11 +104,17 @@ export default function Announcements({ data }: AnnouncementsProps) {
                 <div className="flex items-start gap-4">
                   {/* Date Circle */}
                   <div className="flex-none w-[60px] h-[60px] rounded-full bg-[#7BA7E8] text-white flex flex-col items-center justify-center text-center p-1">
-                    <span className="text-lg font-bold leading-none">{announcement.date.day}</span>
-                    <span className="text-xs font-medium mt-0.5">{announcement.date.month}</span>
-                    <span className="text-[10px] leading-none">{announcement.date.year}</span>
+                    <span className="text-lg font-bold leading-none">
+                      {announcement.date.day}
+                    </span>
+                    <span className="text-xs font-medium mt-0.5">
+                      {announcement.date.month}
+                    </span>
+                    <span className="text-[10px] leading-none">
+                      {announcement.date.year}
+                    </span>
                   </div>
-                  
+
                   {/* Title and NEW badge */}
                   <div className="flex-1">
                     <div className="relative">
@@ -115,4 +132,4 @@ export default function Announcements({ data }: AnnouncementsProps) {
       </Div>
     </Section>
   );
-} 
+}
