@@ -7,7 +7,28 @@ const ConsultationButton = () => {
         href="https://shorturl.at/EMOCr"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-full h-8 lg:h-9 bg-black text-white border border-gray-700 group-hover:border-white rounded-md overflow-hidden transition-all duration-300 font-medium text-xs lg:text-sm shadow-md"
+        className="
+          group
+          relative
+          flex
+          items-center
+          justify-center
+          w-full
+          h-8 lg:h-9
+          bg-black
+          text-white
+          border
+          border-gray-100
+          rounded-md
+          overflow-hidden
+          transition-all
+          duration-300
+          font-medium
+          text-xs lg:text-sm
+          shadow-md
+          group-hover:border-transparent
+          group-hover:shadow-none
+        "
       >
         {/* Goo blob fills the entire button on hover */}
         <div
@@ -53,13 +74,6 @@ const ConsultationButton = () => {
             </filter>
           </defs>
         </svg>
-
-        {/* Remove border + shadow on hover */}
-        <style jsx>{`
-          a:hover {
-            box-shadow: none;
-          }
-        `}</style>
       </a>
     </div>
   );
