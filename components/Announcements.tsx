@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import Star from "@/assets/star.svg";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -54,23 +54,17 @@ const NewBadge = () => (
 export default function Announcements({ data }: AnnouncementsProps) {
   const router = useRouter();
 
-  // Smooth scrolling for #announcements
   useEffect(() => {
+    // Check for #announcements hash and scroll to the section
     if (window.location.hash === "#announcements") {
-      const announcementsSection = document.getElementById("announcements");
-      if (announcementsSection) {
-        setTimeout(() => {
-          announcementsSection.scrollIntoView({ behavior: "smooth" });
-        }, 100); // Slight delay to ensure DOM is ready
+      const element = document.getElementById("announcements");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
   }, []);
 
   const handleAnnouncementClick = (id: number) => {
-    if (typeof id !== "number" || id <= 0) {
-      console.error("Invalid announcement ID:", id);
-      return;
-    }
     router.push(`/announcement?id=${id}`);
   };
 
