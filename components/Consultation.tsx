@@ -20,7 +20,7 @@ const ConsultationButton = () => {
           border
           border-gray-100
           rounded-md
-          overflow-hidden
+          overflow-visible  
           transition-all
           duration-300
           font-medium
@@ -32,7 +32,7 @@ const ConsultationButton = () => {
       >
         {/* Goo blob fills the entire button on hover */}
         <div
-          className="absolute inset-0 bg-white rounded-md scale-0 group-hover:scale-100 transition-transform duration-500 ease-in-out"
+          className="absolute -inset-1 bg-white rounded-md scale-0 group-hover:scale-100 transition-transform duration-500 ease-in-out"
           style={{
             filter: "url(#goo)",
             transformOrigin: "center",
@@ -49,17 +49,12 @@ const ConsultationButton = () => {
           <defs>
             <filter
               id="goo"
-              x="0"
-              y="0"
+              x="-50%"
+              y="-50%"
               width="200%"
               height="200%"
               colorInterpolationFilters="sRGB"
             >
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="8"
-                result="blur"
-              />
               <feColorMatrix
                 in="blur"
                 mode="matrix"
