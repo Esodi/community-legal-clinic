@@ -62,26 +62,35 @@ export default function ServicePage() {
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const id = Number(searchParams.get('id'));
+  const [apiData, setApiData] = useState<any>(null);
+  const idParam = searchParams.get('id');
+  const id = idParam ? Number(idParam) : NaN;
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
+    if (!idParam || isNaN(id)) {
+      setError('Invalid or missing service ID in URL');
+      setLoading(false);
+      setService(null);
+      return;
+    }
+
     const fetchService = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Fetch all services from the webpages API
         const response = await fetch('/api/webpages');
         if (!response.ok) {
           throw new Error('Failed to fetch services');
         }
         const data = await response.json();
-        
-        // Find the specific service by ID from the packages array in servicesData
+        setApiData(data);
+
         const foundService = data.servicesData?.packages?.find((s: Service) => s.id === id);
         if (!foundService) {
           throw new Error('Service not found');
         }
-        
+
         setService(foundService);
       } catch (error) {
         console.error('Error fetching service:', error);
@@ -92,17 +101,17 @@ export default function ServicePage() {
       }
     };
 
-    if (id) {
-      fetchService();
-    }
-  }, [id]);
+    fetchService();
+  }, [id, idParam]);
 
-  // Function to extract video ID from YouTube URL
-  const getYouTubeVideoId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return match && match[2].length === 11 ? match[2] : null;
-  };
+  // Show video player after thumbnail click or immediately if no thumbnail
+  useEffect(() => {
+    if (service && (!service.videoThumbnail || !service.videoUrl)) {
+      setShowVideo(true);
+    } else {
+      setShowVideo(false);
+    }
+  }, [service]);
 
   if (loading) {
     return (
@@ -118,10 +127,18 @@ export default function ServicePage() {
         <div className="text-center">
           <div className="text-xl mb-4">Service not found</div>
           <div className="text-gray-400">{error}</div>
+          {apiData && (
+            <pre className="text-xs text-left mt-4 bg-black/50 p-2 rounded max-w-xl overflow-x-auto">
+              {JSON.stringify(apiData, null, 2)}
+            </pre>
+          )}
         </div>
       </div>
     );
   }
+
+  const isYoutube = service.videoUrl?.includes('youtube.com') || service.videoUrl?.includes('youtu.be');
+  const isVimeo = service.videoUrl?.includes('vimeo.com');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#001a42] via-[#001a42] to-[#2a1a42] text-white">
@@ -145,17 +162,31 @@ export default function ServicePage() {
                 </div>
               }
             >
-              {service.videoUrl?.includes('youtube.com') || service.videoUrl?.includes('youtu.be') ? (
+              {service.videoUrl && (showVideo || !service.videoThumbnail) && (isYoutube || isVimeo) ? (
                 <VideoPlayer url={service.videoUrl} />
-              ) : (
-                <Image
-                  src={service.videoThumbnail || ''}
-                  alt={service.title}
-                  className="object-cover"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              )}
+              ) : service.videoThumbnail ? (
+                <button
+                  type="button"
+                  className="w-full h-full absolute inset-0 focus:outline-none"
+                  onClick={() => setShowVideo(true)}
+                  aria-label="Play video"
+                  style={{ zIndex: 2 }}
+                >
+                  <Image
+                    src={service.videoThumbnail}
+                    alt={service.title}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                      <circle cx="40" cy="40" r="40" fill="rgba(0,0,0,0.5)" />
+                      <polygon points="32,25 60,40 32,55" fill="#fff" />
+                    </svg>
+                  </span>
+                </button>
+              ) : null}
             </Suspense>
           </div>
 

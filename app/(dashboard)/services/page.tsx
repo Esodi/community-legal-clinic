@@ -39,9 +39,14 @@ export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<ServiceFormData>({
-    defaultValues: {
-      offerings: [""]
-    }
+      defaultValues: {
+        title: "",
+        description: "",
+        videoThumbnail: "",
+        videoUrl: "",
+        offerings: [""],
+        status: "active"
+      }
   })
   const offerings = watch("offerings")
 
@@ -61,12 +66,12 @@ export default function ServicesPage() {
         headers: {
           'Authorization': `Bearer ${token}`
         }
-      })
+      });
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error("Failed to fetch services")
+        throw new Error("Failed to fetch services");
       }
-      const data = await response.json()
-      setServices(data.packages || [])
+      setServices(data.services || data.packages || []);
     } catch (error) {
       console.error("Error fetching services:", error)
       setError("Failed to fetch services")
@@ -100,7 +105,7 @@ export default function ServicesPage() {
         status: formData.status,
         offerings: formData.offerings
           .filter(text => text.trim() !== "")
-          .map((text, index) => ({ text }))
+          .map(text => ({ text }))
       }
 
       const url = editingService 
