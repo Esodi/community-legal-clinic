@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Cog } from "lucide-react";
+import ConsultationButton from "./Consultation";
 
 type ServicePackage = {
   id: number;
@@ -149,18 +150,13 @@ export default function Services({ data }: ServicesProps) {
           >
             <AnimatePresence mode="sync">
               {Array.from({ length: itemsPerPage }).map((_, idx) => {
-                // Calculate the circular index for each card
                 const circularIndex =
                   (currentIndex * itemsPerPage + idx) % data.packages.length;
                 const service = data.packages[circularIndex];
                 return (
                   <motion.div
                     key={service.id}
-                    className="flex flex-col h-full absolute"
-                    style={{
-                      left: `${idx * (100 / itemsPerPage)}%`,
-                      width: `${100 / itemsPerPage}%`,
-                    }}
+                    className="flex flex-col h-full"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
@@ -201,7 +197,7 @@ export default function Services({ data }: ServicesProps) {
                       </div>
                       {/* Content */}
                       <div className="p-4 lg:p-6 flex-1 flex flex-col h-full">
-                        <div className="h-[120px] lg:h-[100px] overflow-hidden">
+                        <div className="min-h-[160px] overflow-hidden flex flex-col justify-between">
                           <h3 className="text-gray-900 text-lg lg:text-xl font-bold mb-1 lg:mb-2 line-clamp-2">
                             {service.title}
                           </h3>
@@ -214,7 +210,7 @@ export default function Services({ data }: ServicesProps) {
                               onClick={() => handleServiceClick(service)}
                               className="text-blue-600 hover:text-blue-700 text-xs lg:text-sm font-medium mt-1 inline-flex items-center"
                             >
-                              See More
+                              learn more
                               <svg
                                 className="w-3 h-3 ml-1"
                                 fill="none"
@@ -265,34 +261,40 @@ export default function Services({ data }: ServicesProps) {
                             href="https://shorturl.at/UJAb8"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full bg-[#25D366] hover:bg-[#22c35e] text-white h-8 lg:h-9 flex items-center justify-center gap-1 text-xs lg:text-sm font-medium rounded-md shadow-md hover:shadow-lg transition-all duration-300"
+                            className="relative overflow-hidden bg-[#00c02c] text-white h-8 lg:h-9 rounded-sm text-xs lg:text-sm flex items-center justify-center gap-2 cursor-pointer select-none group w-full px-4 isolate"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
+                            {/* White background that appears on hover */}
+                            <motion.span
+                              className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out z-0"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              whileHover={{ opacity: 1 }}
+                            />
+
+                            {/* WhatsApp Icon */}
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
+                              width="24"
+                              height="24"
                               viewBox="0 0 24 24"
                               fill="currentColor"
+                              className="mr-2 z-10 text-white group-hover:text-[#00c02c] transition-colors duration-300 shrink-0 pointer-events-none"
                             >
                               <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                             </svg>
-                            Chat with Legal Expert
+
+                            {/* Text */}
+                            <span className="z-10 text-white group-hover:text-[#00c02c] transition-colors duration-300 pointer-events-none">
+                              Chat with Legal Expert
+                            </span>
                           </motion.a>
                           <div className="text-center my-2">
                             <span className="text-gray-600 text-xs">Or</span>
                           </div>
-                          <motion.a
-                            href="https://shorturl.at/EMOCr"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full h-8 lg:h-9 bg-black text-white border border-gray-700 rounded-md hover:bg-gray-900 transition-all duration-300 font-medium text-xs lg:text-sm flex items-center justify-center shadow-md hover:shadow-lg"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            Book Consultation
-                          </motion.a>
+                          <ConsultationButton />
                         </div>
                       </div>
                     </div>
