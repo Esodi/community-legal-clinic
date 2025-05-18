@@ -44,7 +44,6 @@ export default function WebsiteLayout({
     <div className="flex  min-h-screen">
       <Header navigationLinks={data.headerData.navigationLinks} />
       <main className="flex-grow pt-16">{children}</main>
-      <Footer data={data.footerData} />
     </div>
   );
 }
