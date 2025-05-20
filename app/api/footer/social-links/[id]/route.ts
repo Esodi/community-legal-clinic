@@ -4,8 +4,8 @@ import { getAuthHeader } from '@/utils/auth'
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://0.0.0.0:8000'
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  _request: Request,
+  context: { params: { id: string } }
 ) {
   try {
     const authHeader = getAuthHeader()
@@ -14,7 +14,7 @@ export async function DELETE(
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const response = await fetch(`${API_URL}/company-details/social-links/${params.id}`, {
+    const response = await fetch(`${API_URL}/company-details/social-links/${context.params.id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': authHeader
