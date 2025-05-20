@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Cog } from "lucide-react";
-import ConsultationButton from "./Consultation";
+// import ConsultationButton from "./Consultation";
 
 type ServicePackage = {
   id: number;
@@ -294,7 +294,7 @@ export default function Services({ data }: ServicesProps) {
                           <div className="text-center my-2">
                             <span className="text-gray-600 text-xs">Or</span>
                           </div>
-                          <ConsultationButton />
+                          {/* <ConsultationButton /> */}
                         </div>
                       </div>
                     </div>

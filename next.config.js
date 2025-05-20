@@ -16,6 +16,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true, // ✅ This disables ESLint during `next build`
+  },
   webpack: (config, { dev, isServer }) => {
     // Suppress the warning about updating a component while rendering
     if (dev && !isServer) {

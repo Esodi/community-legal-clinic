@@ -3,10 +3,7 @@ import { getAuthHeader } from '@/utils/auth'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://0.0.0.0:8000'
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request) {
   try {
     const authHeader = getAuthHeader()
 
@@ -14,7 +11,15 @@ export async function DELETE(
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const response = await fetch(`${API_URL}/company-details/contact/${params.id}`, {
+    // Extract id from the URL
+    const url = new URL(request.url)
+    const id = url.pathname.split('/').pop()
+
+    if (!id) {
+      return new NextResponse('Bad Request: Missing id', { status: 400 })
+    }
+
+    const response = await fetch(`${API_URL}/company-details/contact/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': authHeader
@@ -31,4 +36,4 @@ export async function DELETE(
     console.error('Error deleting contact item:', error)
     return new NextResponse('Internal Server Error', { status: 500 })
   }
-} 
+}
