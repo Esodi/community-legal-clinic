@@ -30,7 +30,7 @@ export async function GET(request: Request) {
   try {
     // Get token from Authorization header or cookies
     const authHeader = request.headers.get('Authorization')
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     
     let token = authHeader?.replace('Bearer ', '')
     
