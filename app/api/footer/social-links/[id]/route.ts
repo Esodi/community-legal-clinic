@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://0.0.0.0:8000'
 
 export async function DELETE(
   _request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const authHeader = getAuthHeader()
@@ -14,7 +14,7 @@ export async function DELETE(
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const response = await fetch(`${API_URL}/company-details/social-links/${context.params.id}`, {
+    const response = await fetch(`${API_URL}/company-details/social-links/${params.id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': authHeader
